@@ -22,6 +22,10 @@ public class Node {
         this.infected = status;
     }
 
+    public boolean getInfected() {
+        return this.infected;
+    }
+
     public void setDiscovered(boolean status) {
         this.discovered = status;
     }
