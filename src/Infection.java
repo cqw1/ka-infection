@@ -54,8 +54,6 @@ public class Infection {
                 break;
             }
         }
-
-        //return allConnectedComponents;
     }
 
     public static HashSet<HashSet<Node>> findConnectedComponents(HashMap<Node, HashSet<Node>> graph) {

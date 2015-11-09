@@ -1,6 +1,3 @@
-/**
- * Created by cwang on 11/9/2015.
- */
 public class Edge {
     private Node from;
     private Node to;
