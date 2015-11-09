@@ -33,22 +33,37 @@ public class Infection {
         edges.add(new Edge(a, f));
         edges.add(new Edge(g, h));
 
-        HashMap<Node, ArrayList<Node>> graph = createGraph(nodes, edges);
-//
-//        for (Node n: graph.keySet()) {
-//            System.out.println(n + ": " + graph.get(n));
-//        }
+        HashMap<Node, HashSet<Node>> graph = createGraph(nodes, edges);
 
-        System.out.println(findConnectedcomponents(deepClone(graph)));
+
+        totalInfection(a, graph);
+        for (Node n: graph.keySet()) {
+            System.out.println(n + ": " + graph.get(n));
+        }
         System.out.println(graph.keySet());
     }
 
-    public static ArrayList<ArrayList<Node>> findConnectedcomponents(HashMap<Node, ArrayList<Node>> graph) {
-        ArrayList<ArrayList<Node>> allConnectedComponents = new ArrayList<ArrayList<Node>>();
+    public static void totalInfection(Node startNode, HashMap<Node, HashSet<Node>> graph) {
+        HashSet<HashSet<Node>> allConnectedComponents = findConnectedComponents(deepClone(graph));
+
+        for (HashSet<Node> connectedComponent: allConnectedComponents) {
+            if (connectedComponent.contains(startNode)) {
+                for (Node n: connectedComponent) {
+                    n.setInfected(true);
+                }
+                break;
+            }
+        }
+
+        //return allConnectedComponents;
+    }
+
+    public static HashSet<HashSet<Node>> findConnectedComponents(HashMap<Node, HashSet<Node>> graph) {
+        HashSet<HashSet<Node>> allConnectedComponents = new HashSet<HashSet<Node>>();
 
         Set<Node> nodes = graph.keySet();
         while (!nodes.isEmpty()) {
-            ArrayList<Node> newConnectedComponent = new ArrayList<Node>();
+            HashSet<Node> newConnectedComponent = new HashSet<Node>();
 
             Stack<Node> stack = new Stack<Node>();
 
@@ -62,13 +77,12 @@ public class Infection {
                 node.setDiscovered(true);
                 newConnectedComponent.add(node);
 
-                ArrayList<Node> neighbors = graph.get(node);
+                HashSet<Node> neighbors = graph.get(node);
                 nodes.remove(node);
 
-                for (int i = 0; i < neighbors.size(); i++) {
-                    Node neighborNode = neighbors.get(i);
-                    if (!neighborNode.getDiscovered()) {
-                        stack.push(neighborNode);
+                for (Node neighbor: neighbors) {
+                    if (!neighbor.getDiscovered()) {
+                        stack.push(neighbor);
                     }
                 }
             }
@@ -79,11 +93,11 @@ public class Infection {
     }
 
 
-    public static HashMap<Node, ArrayList<Node>> createGraph(HashSet<Node> nodes, HashSet<Edge> edges) {
-        HashMap<Node, ArrayList<Node>> graph = new HashMap<Node, ArrayList<Node>>();
+    public static HashMap<Node, HashSet<Node>> createGraph(HashSet<Node> nodes, HashSet<Edge> edges) {
+        HashMap<Node, HashSet<Node>> graph = new HashMap<Node, HashSet<Node>>();
 
         for (Node n: nodes) {
-            graph.put(n, new ArrayList<Node>());
+            graph.put(n, new HashSet<Node>());
         }
 
         for (Edge e: edges) {
@@ -98,14 +112,45 @@ public class Infection {
     }
 
     // Needed to deepClone the graph so when we remove/modify the keyset, we don't delete the original graph's entries.
-    public static HashMap<Node, ArrayList<Node>> deepClone(HashMap<Node, ArrayList<Node>> original) {
-        HashMap<Node, ArrayList<Node>> copy = new HashMap<Node, ArrayList<Node>>();
+    public static HashMap<Node, HashSet<Node>> deepClone(HashMap<Node, HashSet<Node>> original) {
+        HashMap<Node, HashSet<Node>> copy = new HashMap<Node, HashSet<Node>>();
 
-        for (Map.Entry<Node, ArrayList<Node>> entry: original.entrySet()) {
+        for (Map.Entry<Node, HashSet<Node>> entry: original.entrySet()) {
             copy.put(entry.getKey(), entry.getValue());
         }
 
         return copy;
+    }
+
+    public static HashMap<Node, HashSet<Node>> graph1() {
+        Node a = new Node("a");
+        Node b = new Node("b");
+        Node c = new Node("c");
+        Node d = new Node("d");
+        Node e = new Node("e");
+        Node f = new Node("f");
+        Node g = new Node("g");
+        Node h = new Node("h");
+
+        HashSet<Node> nodes = new HashSet<Node>();
+        nodes.add(a);
+        nodes.add(b);
+        nodes.add(c);
+        nodes.add(d);
+        nodes.add(e);
+        nodes.add(f);
+        nodes.add(g);
+        nodes.add(h);
+
+        HashSet<Edge> edges = new HashSet<Edge>();
+        edges.add(new Edge(a, b));
+        edges.add(new Edge(a, c));
+        edges.add(new Edge(a, d));
+        edges.add(new Edge(a, e));
+        edges.add(new Edge(a, f));
+        edges.add(new Edge(g, h));
+
+        return createGraph(nodes, edges);
     }
 
 }
