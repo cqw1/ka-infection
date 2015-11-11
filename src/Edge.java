@@ -1,3 +1,7 @@
+/**
+ * Edge class to represent the relationship between two users. Represented by an undirected edge since infections can be
+ * transferred by both the "coaches" and "is coached" relationship.
+ */
 public class Edge {
     private Node from;
     private Node to;

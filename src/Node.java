@@ -1,3 +1,6 @@
+/**
+ * Node class to represent a user. A infected user is represented with an asterisk after its name.
+ */
 public class Node {
     private String name;
     private String infectedName;
