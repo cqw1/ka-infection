@@ -223,7 +223,11 @@ public class Infection {
         HashMap<Node, ArrayList<Node>> copy = new HashMap<Node, ArrayList<Node>>();
 
         for (Map.Entry<Node, ArrayList<Node>> entry: original.entrySet()) {
-            copy.put(entry.getKey(), entry.getValue());
+            ArrayList<Node> tempList = new ArrayList<Node>();
+            for (Node n: entry.getValue()) {
+                tempList.add(n);
+            }
+            copy.put(entry.getKey(),tempList);
         }
 
         return copy;

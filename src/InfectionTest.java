@@ -17,12 +17,28 @@ public class InfectionTest {
     private Node g = new Node("g");
     private Node h = new Node("h");
     private Node i = new Node("i");
+    private Node j = new Node("j");
+    private Node k = new Node("k");
+    private Node l = new Node("l");
+    private Node m = new Node("m");
+    private Node n = new Node("n");
+    private Node o = new Node("o");
+    private Node p = new Node("p");
+    private Node q = new Node("q");
+    private Node r = new Node("r");
+    private Node s = new Node("s");
+    private Node t = new Node("t");
+    private Node u = new Node("u");
+    private Node v = new Node("v");
+    private Node w = new Node("w");
+    private Node x = new Node("x");
 
     private HashMap<Node, ArrayList<Node>> graph1 = graph1();
     private HashMap<Node, ArrayList<Node>> graph2 = graph2();
     private HashMap<Node, ArrayList<Node>> graph3 = graph3();
     private HashMap<Node, ArrayList<Node>> graph4 = graph4();
     private HashMap<Node, ArrayList<Node>> graph5 = graph5();
+    private HashMap<Node, ArrayList<Node>> graph6 = graph6();
 
     private int count;
 
@@ -197,7 +213,6 @@ public class InfectionTest {
 
         // Graph 4.
         Infection.limitedInfection(i, 5, graph4);
-        ArrayList<Node> isInfected4 = new ArrayList<Node>();
 
         // Changing to checking count rather than infected nodes because we there are multiple optimal infected sets.
         count = 0;
@@ -211,7 +226,6 @@ public class InfectionTest {
 
         // Graph 5.
         Infection.limitedInfection(f, 5, graph5);
-        ArrayList<Node> isInfected5 = new ArrayList<Node>();
 
         // Changing to checking count rather than infected nodes because we there are multiple optimal infected sets.
         count = 0;
@@ -222,6 +236,48 @@ public class InfectionTest {
         }
         assert(count == 5);
         Infection.cleanGraph(graph5);
+
+        // Graph 6.
+        Infection.limitedInfection(a, 9, graph6);
+
+        // Changing to checking count rather than infected nodes because we there are multiple optimal infected sets.
+        count = 0;
+        for (Node n: graph6.keySet()) {
+            if (n.getInfected()) {
+                count += 1;
+            }
+        }
+        // Can't get exactly 9 infected users.
+        assert(count == 11);
+        Infection.cleanGraph(graph6);
+
+        // Graph 6.
+        Infection.limitedInfection(u, 7, graph6);
+
+        // Changing to checking count rather than infected nodes because we there are multiple optimal infected sets.
+        count = 0;
+        for (Node n: graph6.keySet()) {
+            if (n.getInfected()) {
+                count += 1;
+            }
+        }
+        // Can't get exactly 7 infected users.
+        assert(count == 9);
+        Infection.cleanGraph(graph6);
+
+        // Graph 6.
+        Infection.limitedInfection(n, 5, graph6);
+
+        // Changing to checking count rather than infected nodes because we there are multiple optimal infected sets.
+        count = 0;
+        for (Node n: graph6.keySet()) {
+            if (n.getInfected()) {
+                count += 1;
+            }
+        }
+        // Can't get exactly 5 infected users.
+        assert(count == 7);
+        Infection.cleanGraph(graph6);
     }
 
     /**
@@ -436,6 +492,60 @@ public class InfectionTest {
         edges.add(new Edge(g, c));
         edges.add(new Edge(g, h));
         edges.add(new Edge(i, h));
+
+        return Infection.createGraph(nodes, edges);
+    }
+
+    public HashMap<Node, ArrayList<Node>> graph6() {
+        ArrayList<Node> nodes = new ArrayList<Node>();
+        nodes.add(a);
+        nodes.add(b);
+        nodes.add(c);
+        nodes.add(d);
+        nodes.add(e);
+        nodes.add(f);
+        nodes.add(g);
+        nodes.add(h);
+        nodes.add(i);
+        nodes.add(j);
+        nodes.add(k);
+        nodes.add(l);
+        nodes.add(m);
+        nodes.add(n);
+        nodes.add(o);
+        nodes.add(p);
+        nodes.add(q);
+        nodes.add(r);
+        nodes.add(s);
+        nodes.add(t);
+        nodes.add(u);
+        nodes.add(v);
+        nodes.add(w);
+        nodes.add(x);
+
+        ArrayList<Edge> edges = new ArrayList<Edge>();
+        edges.add(new Edge(a, b));
+        edges.add(new Edge(a, c));
+        edges.add(new Edge(c, d));
+        edges.add(new Edge(c, e));
+        edges.add(new Edge(c, f));
+        edges.add(new Edge(d, k));
+        edges.add(new Edge(d, l));
+        edges.add(new Edge(e, o));
+        edges.add(new Edge(e, n));
+        edges.add(new Edge(f, q));
+        edges.add(new Edge(f, p));
+        edges.add(new Edge(b, g));
+        edges.add(new Edge(b, h));
+        edges.add(new Edge(b, i));
+        edges.add(new Edge(b, j));
+        edges.add(new Edge(j, v));
+        edges.add(new Edge(j, w));
+        edges.add(new Edge(j, x));
+        edges.add(new Edge(h, s));
+        edges.add(new Edge(h, t));
+        edges.add(new Edge(h, u));
+        edges.add(new Edge(g, r));
 
         return Infection.createGraph(nodes, edges);
     }
