@@ -15,5 +15,15 @@ To model a limited infection, I assumed a few more rules:
 
 ## Instructions
 
+To use the program, create an ArrayList of Nodes for the users and an ArrayList of Edges for any existing relationships. Although there are no rules enforcing that the nodes must be distinct, it is highly recommended to keep them so. Each node is given a name to identify it and inherently has a infected property. Again, there are no restrictions on the names, but I chose to represent an infected node by appending a * to the end of the name, so it would be best to avoid naming a node with just a * (e.g. if node A were to be infected, it would appear as A*).
+Pass the two lists of nodes and edges into Infection.createGraph, and this will create the graph representation that the totalInfection and limitedInfection methods use.
+
+The method headers for each type of infection is:
+- void totalInfection(Node startNode, HashMap<Node, ArrayList<Node>> graph)
+- void limitedInfection(Node startNode, int limit, HashMap<Node, ArrayList<Node>> graph)
+
+I chose to make the infection methods modify the input graph because I believed that creating a new graph could cost too much memory if the graphs grew to be extremely large, which is possible given a realistic set of users. However, the infection methods do not modify the structure of the graphs; they only modify the status of each node to be infected or not. To obtain the original graph, there exists a cleanGraph method that will reset the infected status and other internal information so that it is reverted back to its original state. If graphs will be reused, it is recommended to "clean" them before reuse.
+
 ## Running Tests
+To run existing tests, run the InfectionTest suite. There already exist a few pre-made graphs that tests can be run on, but making a new graph can easily be done with the createGraph method. Since the order of discovering nodes and choosing between two equal paths (equal in the terms of the goals of our infection algorithm), is not guaranteed, the tests often need to compare the infected nodes to a set of expected nodes or the optimal limited infected count must be maintained. 
 

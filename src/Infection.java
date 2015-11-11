@@ -3,19 +3,53 @@ import java.util.*;
 public class Infection {
 
     public static void main (String [] args) {
+        // Example graph.
+        Node a = new Node("a");
+        Node b = new Node("b");
+        Node c = new Node("c");
+        Node d = new Node("d");
+        Node e = new Node("e");
+        Node f = new Node("f");
+        Node g = new Node("g");
+        Node h = new Node("h");
+        Node i = new Node("i");
+        Node j = new Node("j");
+        Node k = new Node("k");
 
+        ArrayList<Node> nodes = new ArrayList<Node>();
+        nodes.add(a);
+        nodes.add(b);
+        nodes.add(c);
+        nodes.add(d);
+        nodes.add(e);
+        nodes.add(f);
+        nodes.add(g);
+        nodes.add(h);
+        nodes.add(i);
+        nodes.add(j);
+        nodes.add(k);
 
-//        totalInfection(a, graph);
-//        System.out.println(graph.keySet());
-//        cleanGraph(graph);
-//        System.out.println(graph.keySet());
-//        limitedInfection(a, 8, graph);
-//        System.out.println(graph.keySet());
-//        cleanGraph(graph);
+        ArrayList<Edge> edges = new ArrayList<Edge>();
+        edges.add(new Edge(a, b));
+        edges.add(new Edge(a, c));
+        edges.add(new Edge(b, d));
+        edges.add(new Edge(d, e));
+        edges.add(new Edge(c, f));
+        edges.add(new Edge(c, d));
+        edges.add(new Edge(g, c));
+        edges.add(new Edge(g, h));
+        edges.add(new Edge(i, h));
+        edges.add(new Edge(j, k));
 
-//        for (Node n: graph.keySet()) {
-//            System.out.println(n + ": " + graph.get(n));
-//        }
+        HashMap<Node, ArrayList<Node>> graph = createGraph(nodes, edges);
+
+        totalInfection(c, graph);
+        System.out.println(graph.keySet());
+        cleanGraph(graph);
+
+        limitedInfection(g, 4, graph);
+        System.out.println(graph.keySet());
+        cleanGraph(graph);
     }
 
     /**
